@@ -21,6 +21,10 @@ Things you may want to cover:
 
 * Deployment instructions
 
+React Comopnentの追加はjavascripts/の配下にtsxを追加すればESbuildがビルドしてくれる．
+Railsでは複数画面にて，コンポーネントを部分的に追加したいので，マウントを個別に行う仕組みが必要となる．
+なので，　moute.tsxを追加しました．
+
 * Installation
 
 install ruby newest

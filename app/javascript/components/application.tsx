@@ -1,15 +1,11 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import mount from "../mount";
 
-interface AppProps {
-	arg: string;
+interface Props {
+  message: string;
 }
+const App: React.FC<Props> = ({ message }) => <h1> <strong>{message.toUpperCase()}</strong> Hello from React!</h1>;
 
-const App = ({ arg }: AppProps) => {
-	return <div>{`Hello, ${arg}!`}</div>;
-};
-
-document.addEventListener("DOMContentLoaded", () => {
-	const rootEl = document.getElementById("root");
-	ReactDOM.render(<App arg="Rails 7 with ESBuild" />, rootEl);
+mount({
+  App,
 });

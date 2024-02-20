@@ -21,7 +21,7 @@ services:
     volumes:
       - .:/rails
       - bundler:/rails/bundle
-      - node_modules:/rails/node_modules
+      - /rails/node_modules
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
@@ -37,7 +37,7 @@ services:
     working_dir: /rails
     volumes:
       - ./:/rails
-      - node_modules:/rails/node_modules
+      - /rails/node_modules
       - yarn_cache:/usr/local/share/.cache/yarn/v6
 
   css-build:
@@ -48,13 +48,11 @@ services:
     working_dir: /rails
     volumes:
       - ./:/rails
-      - node_modules:/rails/node_modules
+      - /rails/node_modules
       - yarn_cache:/usr/local/share/.cache/yarn/v6
 
 volumes:
   bundler:
-    driver: local
-  node_modules:
     driver: local
   yarn_cache:
     driver: local
