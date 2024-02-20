@@ -7,7 +7,6 @@ type Components = Record<string, React.ElementType>;
  * このコードはまた、data-props属性に含まれるpropsを解析し、それらもコンポーネントに渡します。
  *  */
 const mount = (components: Components): void => {
-  console.debug('test');
   document.addEventListener("DOMContentLoaded", () => {
     const mountPoints = document.querySelectorAll("[data-react-component]");
     mountPoints.forEach((mountPoint: HTMLElement) => {

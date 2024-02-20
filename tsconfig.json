@@ -2,11 +2,7 @@
   "compilerOptions": {
     "module": "es2022",
     "target": "ES2022",
-    "lib": [
-      "ES2023",
-      "DOM",
-      "dom.iterable"
-    ],
+    "lib": ["ES2023", "DOM", "dom.iterable"],
     "jsx": "react",
     "sourceMap": true,
     "incremental": true,
@@ -29,15 +25,10 @@
     "forceConsistentCasingInFileNames": true,
     "noEmitOnError": true,
     "resolveJsonModule": true,
-    "typeRoots": [
-      "./app/javascripts/@types",
-      "./node_modules/@types"
-    ],
-    "baseUrl": "./app/javascripts",
+    "typeRoots": ["./app/javascript/@types", "./node_modules/@types"],
+    "baseUrl": "./app/javascript",
     "paths": {
-      "~/*": [
-        "*"
-      ]
+      "~/*": ["*"]
     }
   }
 }

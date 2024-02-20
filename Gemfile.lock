@@ -193,6 +193,8 @@ GEM
     stringio (3.1.0)
     thor (1.3.0)
     timeout (0.4.1)
+    ts_routes (1.0.3)
+      railties (>= 4.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     webrick (1.8.1)
@@ -217,6 +219,7 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 7.1.3)
   sprockets-rails
+  ts_routes
   tzinfo-data
 
 RUBY VERSION
