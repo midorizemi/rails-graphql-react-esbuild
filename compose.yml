@@ -1,0 +1,62 @@
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    container_name: rails-exam-postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+  web:
+    build:
+      context: '.'
+      dockerfile: Dockerfile.dev
+    command: bash -c "rm -f tmp/pids/server.pid && bin/dev"
+    container_name: rails-exam-web
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/rails
+      - bundler:/rails/bundle
+      - node_modules:/rails/node_modules
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    depends_on:
+      - db
+    tty: true
+
+  js-build:
+    image: node:20.11.1
+    command: 'yarn build --watch'
+    container_name: rails-exam-js-build
+    stdin_open: true
+    working_dir: /rails
+    volumes:
+      - ./:/rails
+      - node_modules:/rails/node_modules
+      - yarn_cache:/usr/local/share/.cache/yarn/v6
+
+  css-build:
+    image: node:20.11.1
+    command: 'yarn build:css --watch'
+    container_name: rails-exam-css-build
+    stdin_open: true
+    working_dir: /rails
+    volumes:
+      - ./:/rails
+      - node_modules:/rails/node_modules
+      - yarn_cache:/usr/local/share/.cache/yarn/v6
+
+volumes:
+  bundler:
+    driver: local
+  node_modules:
+    driver: local
+  yarn_cache:
+    driver: local
+  postgres:
+    driver: local
