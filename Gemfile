@@ -29,6 +29,8 @@ gem "cssbundling-rails"
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
+gem 'graphql'
+
 # 認証
 gem "devise"
 
@@ -38,6 +40,8 @@ group :development, :test do
 
   # route．rbからフロントエンドでタイプセーフなURLを生成する
   gem 'ts_routes'
+
+  gem 'graphiql-rails' # RailsからGraphiQL IDEをそうさする
 end
 
 group :development do
