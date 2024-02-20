@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # ダッシュボードへのルート
+  get 'dashboard', to: 'dashboard#show'
+
   devise_for :users
 
   get "home/index"
