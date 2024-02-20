@@ -12,8 +12,19 @@
 
   <body>
     <%= yield %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-
+    <%if notice || alert%>
+      <dvi class="toast toast-end toast-end">
+          <%if notice%>
+            <div class="alert alert-info">
+              <span><%= notice %></span>
+            </div>
+          <%end%>
+          <%if alert%>
+            <div class="alert alert-success">
+              <span><%= alert %></span>
+            </div>
+          <%end%>
+      </div>
+      <% end %>
   </body>
 </html>
