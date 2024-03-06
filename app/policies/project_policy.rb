@@ -6,6 +6,6 @@ class ProjectPolicy < BasePolicy
   end
 
   def create?
-    true
+    false
   end
 end

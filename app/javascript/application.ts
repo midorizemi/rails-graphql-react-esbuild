@@ -3,3 +3,4 @@ import "./mount";
 import "./generated/routes";
 import "./components/application";
 import "./components/sample";
+import "./features/user/UserIndex";

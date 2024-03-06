@@ -1,0 +1,9 @@
+mutation UserUpdate($input: UserUpdateInput!) {
+  userUpdate(input: $input) {
+    userEdge {
+      node {
+        id
+      }
+    }
+  }
+}

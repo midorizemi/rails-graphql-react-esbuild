@@ -2,3 +2,5 @@
 <p>ようこそ、<%= current_user.email %>さん！</p>
 <%= button_to "サインアウト", destroy_user_session_path, class: "btn btn-accent", method: :delete %>
 
+<%= render ReactComponent.new(component: "UserIndex", raw_props: {message: "hoge"}) %>
+

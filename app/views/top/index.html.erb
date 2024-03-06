@@ -14,7 +14,7 @@
   </div>
 
 <% elsif %>
-<div data-react-component='Sample' data-props='{"message": "やっほー"}'></div>
+  <%= render ReactComponent.new(component: "Sample", raw_props: {message: "hoge"}) %>
 <% end %>
 
-<div data-react-component='App' data-props='{"message": "test"}'></div>
+<%= render ReactComponent.new(component: "App", raw_props: {message: "hoge"}) %>
