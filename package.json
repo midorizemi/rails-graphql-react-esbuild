@@ -2,19 +2,29 @@
   "name": "app",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.9.5",
     "autoprefixer": "^10.4.17",
     "esbuild": "^0.20.0",
+    "graphql": "^16.8.1",
     "postcss": "^8.4.35",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "string-width": "4.2.3",
     "tailwindcss": "^3.4.1"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
     "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify",
-    "check:types": "tsc --project tsconfig.json --noEmit --watch --preserveWatchOutput"
+    "check:types": "tsc --project tsconfig.json --noEmit --watch --preserveWatchOutput",
+    "graphql-codegen": "gql-gen"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/client-preset": "^4.2.4",
+    "@graphql-codegen/fragment-matcher": "^5.0.2",
+    "@graphql-codegen/typescript-operations": "^4.2.0",
+    "@graphql-codegen/typescript-react-apollo": "^4.3.0",
+    "@graphql-typed-document-node/core": "^3.2.0",
     "@types/react": "^18.2.57",
     "@types/react-dom": "^18.2.19",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
@@ -27,6 +37,9 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.33.2",
     "prettier": "^3.2.5",
-    "typescript": "*"
+    "typescript": "^5.3.3"
+  },
+  "resolutions": {
+    "jackspeak": "2.1.1"
   }
 }

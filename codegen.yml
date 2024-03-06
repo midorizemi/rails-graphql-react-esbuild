@@ -1,0 +1,38 @@
+schema: ./schema.graphql
+documents:
+  - ./app/javascript/graphql/**/*.graphql
+  - ./app/javascript/features/*/graphql/*.graphql
+overwrite: true
+generates:
+  ./app/javascript/graphql/generated/possibleTypesResultData.ts:
+    plugins:
+      - fragment-matcher
+  ./app/javascript/graphql/generated/schema.tsx:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      withHooks: true
+      nonOptionalTypename: true
+      withMutationFn: true
+  ./app/javascript/graphql/generated/zodSchema.tsx:
+    plugins:
+      - typescript
+      - typescript-validation-schema
+    config:
+      schema: zod
+      withObjectType: true
+      strictScalars: true
+      directives:
+        constraint:
+          minLength: ["min", "$1", "$1文字以上入力してください"]
+          maxLength: ["max", "$1", "$1文字以内で入力してください"]
+      scalars:
+        Date: string
+        DateTime: string
+        File: File
+        ISO8601DateTime: string
+        ISO8601Date: string
+      scalarSchemas:
+        File: z.instanceof(File)
