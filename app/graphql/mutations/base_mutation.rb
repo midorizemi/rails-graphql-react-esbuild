@@ -2,9 +2,29 @@
 
 module Mutations
   class BaseMutation < GraphQL::Schema::RelayClassicMutation
-    argument_class Types::BaseArgument
-    field_class Types::BaseField
-    input_object_class Types::BaseInputObject
-    object_class Types::BaseObject
+    object_class GraphQL::Schema::Object
+    field_class FieldTypes::BaseField
+    input_object_class InputTypes::BaseInputObject
+
+    private def current_user
+      context.fetch(:current_user)
+    end
+
+    private def request
+      context.fetch(:request)
+    end
+
+    def operation_error_handler(operation:)
+      case operation.error
+      when operation.class::ERROR_POLICY_NOT_AUTHORIZED
+        raise GraphqlError::NotAuthorized
+      when operation.class::ERROR_NOT_UNIQUE
+        raise GraphqlError::NotUnique
+      when operation.class::ERROR_CONTRACT_VALIDATION
+        raise ActiveModel::ValidationError, operation.contract
+      else
+        raise "Unexpected operation error. error: #{operation.error}"
+      end
+    end
   end
 end

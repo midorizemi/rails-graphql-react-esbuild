@@ -1,31 +1,53 @@
 # frozen_string_literal: true
 
 module Types
-  class QueryType < Types::BaseObject
-    field :node, Types::NodeType, null: true, description: "Fetches an object given its ID." do
-      argument :id, ID, required: true, description: "ID of the object."
+  class QueryType < ObjectTypes::BaseObject
+    include ActionView::Helpers::AssetUrlHelper
+
+    prefix_path = "app/graphql/object_types/"
+    exclude_filenames = %w[active_record_base_object.rb
+                           base_connection.rb
+                           base_object.rb
+                           application_type.rb
+                           ]
+    Dir.glob("#{prefix_path}*") do |filename|
+      filename = filename.gsub(prefix_path, "")
+
+      if exclude_filenames.exclude?(filename)
+        filename = filename.gsub("_type.rb", "")
+
+        # object_types配下のファイルを読み込んで，それぞれのオブジェクトを取得するフィールドを定義
+        field filename.to_sym, "ObjectTypes::#{filename.camelize}Type".constantize, null: true do
+          argument :id, ID, required: false, description: "Optional if url is provided."
+        end
+
+        define_method filename do |id: nil, url: nil|
+          object =
+            if id.present?
+              context.schema.object_from_id(id, context)
+            else
+              raise GraphqlError::BadRequest.new(message: "Missing required arguments: id or url")
+            end
+
+          policy = resource_policy(object)
+          if policy && !policy.show?
+            raise GraphqlError::NotAuthorized.new(message: "You're not authorized to get `#{object.class.name}##{object.id}`")
+          end
+
+          object
+        end
+      end
     end
 
-    def node(id:)
-      context.schema.object_from_id(id, context)
+    # 以下，オブジェクト以外のデータを取得するフィールド
+    field :current_user, ObjectTypes::UserType, null: false
+    field :projects, ObjectTypes::ProjectType.connection_type, null: false
+    def projects
+      ProjectPolicyScope.new(user: current_user, scope: Project.all).resolve
     end
-
-    field :nodes, [Types::NodeType, null: true], null: true, description: "Fetches a list of objects given a list of IDs." do
-      argument :ids, [ID], required: true, description: "IDs of the objects."
-    end
-
-    def nodes(ids:)
-      ids.map { |id| context.schema.object_from_id(id, context) }
-    end
-
-    # Add root-level fields here.
-    # They will be entry points for queries on your schema.
-
-    # TODO: remove me
-    field :test_field, String, null: false,
-      description: "An example field added by the generator"
-    def test_field
-      "Hello World!"
+    field :users, ObjectTypes::UserType.connection_type, null: false
+    def users
+      User.all
     end
   end
 end

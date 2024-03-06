@@ -13,6 +13,9 @@
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[ruby]": {
+    "editor.tabSize": 2
+  },
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "eslint.runtime": "/Users/midorizemi/.asdf/installs/nodejs/20.11.1/bin/node"
 }

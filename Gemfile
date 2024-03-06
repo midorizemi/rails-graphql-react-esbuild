@@ -29,7 +29,10 @@ gem "cssbundling-rails"
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
-gem 'graphql'
+gem 'graphql' # GraphQLのコア機能
+gem "graphql-batch" # GraphQLのバッチローディング
+gem "graphql-pagination" # GraphQLのページネーション
+gem 'graphql-schema-directive-constraint' # GraphQLのスキーマディレクティブ
 
 # 認証
 gem "devise"
@@ -42,6 +45,14 @@ group :development, :test do
   gem 'ts_routes'
 
   gem 'graphiql-rails' # RailsからGraphiQL IDEをそうさする
+
+  # モデルにアノテーションを追加する
+  gem 'annotate'
+
+  gem 'solargraph'
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-performance', require: false
 end
 
 group :development do

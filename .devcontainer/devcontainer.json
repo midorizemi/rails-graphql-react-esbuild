@@ -1,0 +1,21 @@
+{
+  "name": "Existing Docker Compose",
+  "dockerComposeFile": [
+    //2つ目のdocker-compose.ymlで1つ目の設定を上書きます
+    "../compose.yml",
+    "compose.yml"
+  ],
+  "service": "web", //docker-compse.ymlで記載されている起動対象のサービス名、Railsのサービスを指定します
+  "workspaceFolder": "/rails", //起動時に接続するディレクトリ
+  // コンテナ内で使う拡張機能
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "castwide.solargraph", // solargraph
+        "rebornix.Ruby", // Rubyのシンタックスハイライトなど
+        "misogi.ruby-rubocop", // Rubocop
+        "KoichiSasada.vscode-rdbg" // Ruby Debug　後述
+      ]
+    }
+  }
+}

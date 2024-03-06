@@ -1,0 +1,5 @@
+version: '3'
+services:
+  web:
+    # docker起動時にRailsが起動しないようにする
+    command: /bin/sh -c "while sleep 1000; do :; done"
